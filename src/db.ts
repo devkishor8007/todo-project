@@ -9,4 +9,3 @@ mongoose
   .catch((e) => {
     console.log("mongodb is connected");
   });
-
