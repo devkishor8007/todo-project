@@ -1,8 +1,9 @@
 import Todo from "../../model/todo.model";
 import { Request, Response, NextFunction } from "express";
 import { HttpStatus } from "../../config";
+import { ErrorResponse } from "../../utils/errorResponse";
 
-exports.getTodo = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteTodo = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const todo = await Todo.findByIdAndDelete(id);
 
