@@ -9,8 +9,8 @@ const router = Router();
 
 router.get("/todo", getTodos);
 router.get("/todo/:id", getTodo);
-router.get("/todo", createTodo);
-router.get("/todo/:id", updateTodo);
-router.get("/todo/:id", deleteTodo);
+router.post("/todo", createTodo);
+router.patch("/todo/:id", updateTodo);
+router.delete("/todo/:id", deleteTodo);
 
 export default router;

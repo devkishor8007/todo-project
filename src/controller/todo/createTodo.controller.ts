@@ -3,7 +3,16 @@ import { Request, Response } from "express";
 import { HttpStatus } from "../../config";
 
 export const createTodo = async (req: Request, res: Response) => {
-  const todo = await Todo.create(req.body);
+  const { title, description, status } = req.body;
+  console.log(req.body);
+  
+  const todo = new Todo({
+    title,
+    description,
+    status
+  });
+
+  await todo.save()
 
   res.json({
     success: true,
