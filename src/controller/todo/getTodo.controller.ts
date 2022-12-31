@@ -1,19 +1,29 @@
 import Todo from "../../model/todo.model";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { HttpStatus } from "../../config";
-import { ErrorResponse } from "../../utils/errorResponse";
+import * as utilsResponse from "../../utils/index";
+import console from "console";
 
-export const getTodo = async (req: Request, res: Response, next: NextFunction) => {
+const utils = utilsResponse.default;
+
+export const getTodoById = async (req: Request, res: Response) => {
+  try {
     const { id } = req.params;
-    const todo = await Todo.findById(id);
+    const todo = await Todo.findById(id, { is_deleted: false });
 
     if (!todo) {
-      return next(new ErrorResponse(`couldnot found the todo Id ${id}`, HttpStatus.not_found));
+      return utils.sendJsonResponse(
+        res,
+        HttpStatus.not_found,
+        null,
+        null,
+        null,
+        `couldnot found the todo Id ${id}`
+      );
     }
 
-    res.json({
-      success: true,
-      statusCode: HttpStatus.ok,
-      data: todo,
-    });
+    return utils.sendJsonResponse(res, HttpStatus.ok, null, todo, null, null);
+  } catch (error) {
+    console.warn(error);
+  }
 };

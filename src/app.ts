@@ -13,6 +13,10 @@ app.options("*", cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.get('/', (req, res) => {
+  res.send("hello");
+})
+
 import todoRouter from "../src/router/todo.router";
 app.use("/api/v1", todoRouter);
 

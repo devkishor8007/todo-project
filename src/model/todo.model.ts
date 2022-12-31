@@ -1,35 +1,29 @@
-import { Schema, model, Types } from "mongoose";
+import { Schema, model } from "mongoose";
+import { StatusType } from "../enums/StatusType";
+import { ITodo } from "../interfaces/ITodo";
 
-enum TodoStatus {
-  completed = "completed",
-  not_completed = "not_completed",
-}
-
-interface ITodoSchema {
-  _id: Types.ObjectId;
-  title: string;
-  description: string;
-  status: TodoStatus;
-  is_deleted: boolean;
-}
-
-const todoSchema = new Schema<ITodoSchema>(
+const todoSchema = new Schema<ITodo>(
   {
-    title: {
+    name: {
       type: String,
       trim: true,
+      required: true,
     },
     description: {
       type: String,
       trim: true,
+      required: true,
     },
     status: {
       type: String,
       enum: ["completed", "not_completed"],
+      default: StatusType.not_completed,
+      required: false,
     },
     is_deleted: {
       type: Boolean,
       default: false,
+      required: false,
     },
   },
   {
@@ -37,6 +31,6 @@ const todoSchema = new Schema<ITodoSchema>(
   }
 );
 
-const Todo = model<ITodoSchema>("Todo", todoSchema);
+const Todo = model<ITodo>("Todo", todoSchema);
 
 export default Todo;
