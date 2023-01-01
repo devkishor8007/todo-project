@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import helmet from "helmet";
 import cors from "cors";
+import * as path from "path";
 
 require("./db");
 
@@ -13,8 +14,21 @@ app.options("*", cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const dir = path.join(__dirname, 'public');
+app.use(express.static(dir));
+
+//initalize our path
+const main = path.join(__dirname, './templates/views');
+
+//set the engine for ejs
+app.set('view engine', "ejs");
+app.set('views', main);
+
 app.get('/', (req, res) => {
-  res.send("hello");
+  res.render('index', {
+    message: "",
+    success: ""
+  });
 })
 
 import todoRouter from "../src/router/todo.router";

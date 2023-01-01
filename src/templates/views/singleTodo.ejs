@@ -1,0 +1,43 @@
+<%- include('../partials/header') -%>
+    <div class="p-2">
+        <div style="display: flex; justify-content: space-between; mb-2 ">
+            <a href="/api/v1/todo" class="nav-link">
+                <svg style="height: 27px; width: 27px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path
+                        d="M109.3 288L480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288z" />
+                </svg>
+            </a>
+            <h3 style="text-decoration: underline">
+                Get Single Todo
+            </h3>
+        </div>
+        <div class="mt-5 p-3 card col-6 offset-3" style="width: 50%;">
+            <h2 class="card-img-top" alt="Card image" width="100" height="300">
+                <div style="display: flex; align-items: center;">
+                    id: <%= data._id%>
+                </div>
+            </h2>
+            <div class="card-body">
+                <div style="display: flex; align-items: center;">
+                    name: <h4 class="card-title">
+                        <%= data.name%>
+                    </h4>
+                </div>
+                <p class="card-text">
+                <div style="display: flex; align-items: center;">
+                    description: <h3 style="padding-left: 5px;">
+                        <%= data.description%>
+                    </h3>
+                </div>
+                </p>
+                <a href="#" class="btn btn-primary">
+                    <%= data.status%>
+                </a>
+                <a href="#" class="btn btn-primary">
+                    <%= data.createdAt%>
+                </a>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') -%>

@@ -1,0 +1,114 @@
+<%- include('../partials/header') -%>
+<style>
+  #tTodo {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #tTodo td,
+  #tTodo th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  #tTodo tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  #tTodo tr:hover {
+    background-color: #ddd;
+  }
+
+  #tTodo th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04aa6d;
+    color: white;
+  }
+</style>
+<div class="px-2">
+  <div style="display: flex; justify-content: space-between; mb-2 ">
+    <a href="/" class="nav-link">
+      <svg
+        style="height: 27px; width: 27px"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+      >
+        <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+        <path
+          d="M109.3 288L480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288z"
+        />
+      </svg>
+    </a>
+    <h3 style="text-decoration: underline" class="font-monospace">
+      Todo Table
+    </h3>
+  </div>
+  <div class="mb-2">
+    <a style="text-decoration: none" href="?status=all">
+      <button type="button" class="btn btn-outline-warning">
+        All (<%=data.length %>)
+      </button>
+    </a>
+    <a style="text-decoration: none" href="?status=completed">
+      <button type="button" class="btn btn-outline-info">
+        Completed (<%= data.filter(v=> v.status === "completed").length %> )
+      </button>
+    </a>
+    <a style="text-decoration: none" href="?status=not_completed"
+      ><button type="button" class="btn btn-outline-primary">
+        Not Completed (<%= data.filter(v=> v.status === "not_completed").length
+        %>)
+      </button></a
+    >
+  </div>
+  <% if (data !="" ) { %>
+  <table id="tTodo">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Target Completed Date</th>
+        <th>Created Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach((item, index)=> { %>
+      <tr>
+        <td>
+          <a
+            href="todo/<%= item._id%>"
+            style="text-decoration: none !important"
+          >
+            <%= index+1 %>
+          </a>
+        </td>
+
+        <td><%= item.name %></td>
+        <td><%= item.description %></td>
+        <td><%= item.status %></td>
+        <td><%= item.completed_date %></td>
+        <td><%= item.createdAt %></td>
+
+        <td>
+          <a href="todo/delete/<%= item._id%>" class="text-danger">
+            <i class="fas fa-trash fa-lg mx-1"></i>
+          </a>
+          <a href="todo/update/<%= item._id%>" class="text-success">
+            <i class="fas fa-edit fa-lg mx-1"></i>
+          </a>
+        </td>
+      </tr>
+
+      <% }) %>
+    </tbody>
+  </table>
+  <% } else { %>
+  <h1 class="text-center text-secondary mt-5">No todo found</h1>
+</div>
+<% } %> <%- include('../partials/footer') -%>

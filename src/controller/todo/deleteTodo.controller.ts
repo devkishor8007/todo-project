@@ -9,9 +9,9 @@ export const softTodo = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const todo = await Todo.findById(id, { is_deleted: false }).exec();
-  console.log(todo, "w");
 
   if (!todo) {
+    // for todo api response
     return utils.sendJsonResponse(
       res,
       HttpStatus.not_found,
@@ -28,12 +28,19 @@ export const softTodo = async (req: Request, res: Response) => {
     { new: true, runValidators: true }
   );
 
-  return utils.sendJsonResponse(
-    res,
-    HttpStatus.ok,
-    null,
-    null,
-    `deleted ${id}`,
-    null
-  );
+  // for todo ejs response
+  return res.render("delete", {
+    statusCode: HttpStatus.ok,
+    message: "delete successfully",
+  });
+
+  // for todo api response
+  // return utils.sendJsonResponse(
+  //   res,
+  //   HttpStatus.ok,
+  //   null,
+  //   null,
+  //   `deleted ${id}`,
+  //   null
+  // );
 };

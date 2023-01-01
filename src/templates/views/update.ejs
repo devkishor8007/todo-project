@@ -1,0 +1,109 @@
+<%- include('../partials/header') -%>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #04aa6d;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            max-width: 750px;
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 22px;
+        }
+    </style>
+    <div class="">
+        <div class="p-2">
+            <div style="display: flex; justify-content: space-between; mb-2 ">
+                <a href="/api/v1/todo" class="nav-link">
+                    <svg style="height: 27px; width: 27px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path
+                            d="M109.3 288L480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288z" />
+                    </svg>
+                </a>
+                <h3 style="text-decoration: underline" class="font-monospace">
+                    Update Todo
+                </h3>
+            </div>
+
+            <div style="max-width: 650px; margin: auto; margin-top: 20px;">
+                <form method="POST" action="/api/v1/todo/update/<%= data._id %>">
+                    <label for="name">Name</label>
+                    <input type="text" minlength="0" id="name" name="name" value=<%=data.name%> />
+
+
+                    <label for="description">Description</label>
+                    <textarea minlength="0" type="text" id="description" name="description"
+                        placeholder="enter the description" style="height: 150px"><%=data.description%></textarea>
+
+
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option <% if(data.status==="completed" ){ %> value="completed" <% } else{ %> Not
+                                value="not_completed" <% } %>>
+                                    <% if(data.status==="completed" ){ %> Completed <% } else{ %> Not
+                                            Completed <% } %>
+                        </option>
+
+                        <option <% if(data.status!=="completed" ){ %> value="completed" <% } else{ %> Not
+                                value="not_completed" <% } %>>
+                                    <% if(data.status !=="completed" ){ %> Completed <% } else{ %> Not
+                                            Completed <% } %>
+                        </option>
+                    </select>
+
+                    <div style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                      width: max-content;
+                    ">
+                        <label for="completed_date">Target Complete Date</label>
+
+
+                        <input id="completed_date" name="completed_date" type="date" value="<%= showDate %>" />
+                    </div>
+                    <button type="submit" class="btn btn-success" name="submit">Update</button>
+                    <a href="/api/v1/todo" class="btn btn-light">Cancel</a>
+                    <% if(message !='' ){ %>
+                        <div class="alert alert-success mt-2" role="alert">
+                            <%= message %>
+                                <%= data.name %>
+                        </div>
+                        <% }%>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <%- include('../partials/footer') -%>

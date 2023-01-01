@@ -7,4 +7,5 @@ export interface ITodo {
     description: string;
     status: StatusType;
     is_deleted: boolean;
+    completed_date: any, 
   }

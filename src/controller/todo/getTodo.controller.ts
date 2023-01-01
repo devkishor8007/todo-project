@@ -12,6 +12,7 @@ export const getTodoById = async (req: Request, res: Response) => {
     const todo = await Todo.findById(id, { is_deleted: false });
 
     if (!todo) {
+      // for todo api error response
       return utils.sendJsonResponse(
         res,
         HttpStatus.not_found,
@@ -22,7 +23,16 @@ export const getTodoById = async (req: Request, res: Response) => {
       );
     }
 
-    return utils.sendJsonResponse(res, HttpStatus.ok, null, todo, null, null);
+    // for todo ejs response
+    res.render("singleTodo", {
+      name: "Contact Us",
+      status: HttpStatus.created,
+      success: "your msg is sent",
+      data: todo,
+    });
+
+    // for todo api response
+    // return utils.sendJsonResponse(res, HttpStatus.ok, null, todo, null, null);
   } catch (error) {
     console.warn(error);
   }

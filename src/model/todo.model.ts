@@ -14,6 +14,11 @@ const todoSchema = new Schema<ITodo>(
       trim: true,
       required: true,
     },
+    completed_date: {
+      type: Date,
+      default: false,
+      required: true,
+    },
     status: {
       type: String,
       enum: ["completed", "not_completed"],

@@ -6,25 +6,35 @@ import * as utilsResponse from "../../utils/index";
 const utils = utilsResponse.default;
 
 export const createTodo = async (req: Request, res: Response) => {
-  const { name, description, status } = req.body;
+  const { name, description, status, completed_date } = req.body;
 
   const inputTodo = {
     name,
     description,
     status,
+    completed_date
   };
 
-  const { error, value } = utils.todoValidator.validate(inputTodo);
+  const { error, value } = utils.todoValidator.validate(inputTodo, { abortEarly: false });
 
   if (error) {
-    return utils.sendJsonResponse(
-      res,
-      HttpStatus.not_found,
-      null,
-      null,
-      null,
-      error.details[0].message
-    );
+    console.log(error);
+
+    // for todo ejs response
+    return res.render("index", {
+      status: HttpStatus.created,
+      message: error.details,
+    });
+
+    // for todo api response
+    // return utils.sendJsonResponse(
+    //   res,
+    //   HttpStatus.not_found,
+    //   null,
+    //   null,
+    //   null,
+    //   error.details[0].message
+    // );
   }
 
   const todo = await Todo.create({
@@ -32,14 +42,23 @@ export const createTodo = async (req: Request, res: Response) => {
     description: value.description,
     status,
     is_deleted: false,
+    completed_date,
   });
 
-  return utils.sendJsonResponse(
-    res,
-    HttpStatus.created,
-    null,
-    todo,
-    null,
-    null
-  );
+  // for todo ejs response
+  res.render("index", {
+    status: HttpStatus.created,
+    message: "",
+    success: ""
+  });
+
+  // for todo api response
+  // return utils.sendJsonResponse(
+  //   res,
+  //   HttpStatus.created,
+  //   null,
+  //   todo,
+  //   null,
+  //   null
+  // );
 };
