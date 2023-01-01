@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { MONGO_URI } from "./config";
 
 mongoose.set("strictQuery", false);
 mongoose
-  .connect("mongodb://127.0.0.1:27017/test")
+  .connect(`${MONGO_URI}`)
   .then(() => {
     console.log("mongodb is connected");
   })
@@ -11,6 +12,8 @@ mongoose
   });
 
 const connection = mongoose.connection;
+
+connection.on("error", console.error.bind(console, "connection error:"));
 connection.on("open", function () {
   console.log("connection is success");
 });

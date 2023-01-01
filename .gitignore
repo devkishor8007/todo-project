@@ -1,7 +1,12 @@
 node_modules
 data-node
 data.txt
+dist
 
 .DS_Store
 
 .env
+
+# configure issue
+Dockerfile
+docker-compose.yml
