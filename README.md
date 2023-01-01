@@ -19,12 +19,17 @@
 ## used
 - nodejs, expressjs, mongodb, ejs(template engine), typescript
 - yup for validate
+- morgan allows you to log HTTP requests made to your application in a standardized format
+- cors helps security feature implemented by web browsers
+- dotenv is a zero-dependency module that loads environment variables from a .env file
+- helmet helps secure your Express.js app by setting various HTTP headers.
+- ts-node allows you to run TypeScript scripts without first compiling them to JavaScript
+- nodemon helps automatically restarts a Node.js app when file changes are detected
 
 ## functionalities
 - todo: add, create, delete, update
 - filterable todo by status
 - try to handle errors
-
 
 ## what's inside??
 After setup, start the server `$ npm run dev`, you can see on your terminal `server running on http://localhost:5000!`; wait for the connection of mongodb connection and if ok hint the url on any browser, this given below image is open on your browser. Basically, this page is the opening page!!
